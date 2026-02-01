@@ -20,20 +20,28 @@
     .container {
       text-align: center;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       padding: 20px;
     }
 
     h1 {
       color: #ff4d88;
       font-size: 2.3em;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     p {
       color: #ff6fa5;
-      font-size: 1.2em;
-      margin-bottom: 25px;
+      font-size: 1.15em;
+      margin-bottom: 20px;
+    }
+
+    #sadText {
+      min-height: 40px;
+      color: #ff4d88;
+      font-size: 1em;
+      margin-bottom: 15px;
+      transition: opacity 0.3s ease;
     }
 
     .buttons {
@@ -74,6 +82,8 @@
     <h1>Yasyyy 💖</h1>
     <p>Will you be my Valentine?</p>
 
+    <div id="sadText"></div>
+
     <div class="buttons">
       <button id="yes">YES 💕</button>
       <button id="no">NO 🙄</button>
@@ -81,13 +91,11 @@
   </div>
 
   <div class="container hidden" id="success">
-    <h1>YIPPPPYYY 💘🥰</h1>
-    <p>you probablly made my year Ms.Claire 💕
-    im gonna be very sad if you say no</p>
-    <p style="color:#ff4d88; margin-top:15px;">Happy Valentine’s 💖</p>
+    <h1>YIPYYYY 💘🥰</h1>
+    <p>You probablly just made my year Ms.claire 💕</p>
+    <p style="color:#ff4d88;">Happy Valentine’s 💖</p>
   </div>
 
-  <!-- Cute music -->
   <audio id="music">
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a4b6b0b93.mp3?filename=cute-happy-114254.mp3" type="audio/mpeg">
   </audio>
@@ -95,7 +103,18 @@
   <script>
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
+    const sadText = document.getElementById("sadText");
+
+    const messages = [
+      "I’ll be a little sad if you say no 🥺",
+      "That would kinda break my heart 💔",
+      "Please don’t do this to me 😭",
+      "I’ll be thinking about it all day 😢",
+      "Okay now you’re just being mean 😔"
+    ];
+
     let scale = 1;
+    let msgIndex = 0;
 
     yesBtn.addEventListener("click", () => {
       document.getElementById("music").play();
@@ -107,7 +126,12 @@
     noBtn.addEventListener("click", () => {
       scale -= 0.15;
       if (scale < 0.35) noBtn.textContent = "👀";
+
       noBtn.style.transform = `scale(${scale})`;
+
+      sadText.textContent = messages[msgIndex % messages.length];
+      msgIndex++;
+
       moveNo();
     });
 
